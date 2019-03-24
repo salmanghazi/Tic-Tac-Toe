@@ -10,11 +10,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -30,7 +33,7 @@ public class tictactoe extends javax.swing.JFrame {
     public tictactoe() {
         initComponents();
 
-        setTitle("Tic Tac Toe");
+        setTitle("Muhammad Salman");
         setSize(500, 500);
         buttons = new JButton[3][3];
 
@@ -84,20 +87,29 @@ public class tictactoe extends javax.swing.JFrame {
         clip.open(audioInputStream);
 
         clip.start();
-        JOptionPane.showMessageDialog(rootPane, "GameOver-Try Again");
+        
+        JOptionPane.showMessageDialog(rootPane, "GameOver-Try Again","Draw",JOptionPane.ERROR_MESSAGE);
 
         this.dispose();
     }
 
     public void gameOver(String arr) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
+        ImageIcon img1 = new ImageIcon("newI.jpg");
+        ImageIcon img2 = new ImageIcon("cross.png");
         String soundName = "yay.wav";
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
         Clip clip = AudioSystem.getClip();
         clip.open(audioInputStream);
-
         clip.start();
-        JOptionPane.showMessageDialog(rootPane, arr);
+        if(arr=="Tick has won")
+        {
+            JOptionPane.showMessageDialog(rootPane, arr,"Player 1 has won",JOptionPane.INFORMATION_MESSAGE, img1);
+        }
+        else
+            JOptionPane.showMessageDialog(rootPane, arr,"Player 2 has won",JOptionPane.INFORMATION_MESSAGE, img2);
+        
+        
 
         this.dispose();
     }
@@ -108,7 +120,15 @@ public class tictactoe extends javax.swing.JFrame {
             for (int k = 0; k < 3; k++) {
                 for (int l = 0; l < 3; l++) {
                     if (e.getSource() == buttons[k][l]) {
-                        ttc.hasClicked(k, l);
+                        try {
+                            ttc.hasClicked(k, l);
+                        } catch (UnsupportedAudioFileException ex) {
+                            Logger.getLogger(tictactoe.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IOException ex) {
+                            Logger.getLogger(tictactoe.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (LineUnavailableException ex) {
+                            Logger.getLogger(tictactoe.class.getName()).log(Level.SEVERE, null, ex);
+                        }
 
                     }
                 }

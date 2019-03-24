@@ -22,9 +22,9 @@ public class TTModel {
     TTModel(int curr, tictactoe vie, TTController con) {
         currentPlayer = curr;
         if (currentPlayer == 1) {
-            img = new ImageIcon("/Users/m.salmanghazi/Downloads/newI.jpg");
+            img = new ImageIcon("newI.jpg");
         } else {
-            img = new ImageIcon("/Users/m.salmanghazi/Downloads/cross.png");
+            img = new ImageIcon("cross.png");
         }
         this.view = vie;
         this.control = con;
